@@ -1,0 +1,25 @@
+modules:
+  jira:issuePanel:
+    - key: intro-custom-ui
+      resource: main
+      resolver:
+        function: resolver
+      viewportSize: medium
+      title: intro-custom-ui
+      icon: https://developer.atlassian.com/platform/forge/images/issue-panel-icon.svg
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+permissions:
+  scopes:
+    - storage:app
+    - read:jira-work
+app:
+  runtime:
+    name: nodejs24.x
+    memoryMB: 256
+    architecture: arm64
+  id: ari:cloud:ecosystem::app/b1fe18b0-e97e-402e-ba2e-1de533990f6e
