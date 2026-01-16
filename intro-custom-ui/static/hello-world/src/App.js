@@ -9,30 +9,32 @@ function App() {
   const [items, setItems] = useState([]);
   const [newItemText, setNewItemText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [issueInfo, setIssueInfo] = useState({ labels: [], commentCount: 0 });
 
-  // Render all items
   useEffect(() => {
-    invoke("getItems")
+    invoke("getItems").then((data) => {
+      setItems(data || []);
+    });
+    invoke("getIssueInfo")
       .then((data) => {
-        setItems(data || []);
+        setIssueInfo(data);
       })
       .catch(console.error)
       .finally(() => setIsLoading(false));
   }, []);
 
-  const handleAddItem = async () => {
-    if (!newItemText.trim()) return;
+  const handleAddItem = async (itemId) => {
     const items = await invoke("addItem", { text: newItemText });
     setItems(items);
     setNewItemText("");
   };
 
-  const handleToggle = async (itemId) => {
+  const handleToggleItem = async (itemId) => {
     const items = await invoke("toggleItem", { itemId });
     setItems(items);
   };
 
-  const handleDelete = async (itemId) => {
+  const handleDeleteItem = async (itemId) => {
     const items = await invoke("deleteItem", { itemId });
     setItems(items);
   };
@@ -53,7 +55,7 @@ function App() {
         <input
           type="text"
           className="add-input"
-          placeholder="Add new item..."
+          placeholder="Add new item"
           value={newItemText}
           onChange={(e) => setNewItemText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleAddItem()}
@@ -65,7 +67,7 @@ function App() {
 
       {items.length === 0 ? (
         <div className="empty-state">
-          <p>No items yet. Add your first task above.</p>
+          <p> No items yet. Add your first task.</p>
         </div>
       ) : (
         <div>
@@ -74,6 +76,18 @@ function App() {
               Tasks ({completedCount}/{items.length})
             </span>
           </div>
+
+          <div className="issue-info">
+            <span>Comments: {issueInfo.commentCount}</span>
+            <div className="labels">
+              {issueInfo.labels.map((label) => (
+                <span key={label} className="label-tag">
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+
           {items.map((item) => (
             <div
               key={item.id}
@@ -81,7 +95,7 @@ function App() {
             >
               <Checkbox
                 isChecked={item.completed}
-                onChange={() => handleToggle(item.id)}
+                onChange={() => handleToggleItem(item.id)}
                 label=""
               />
               <span
@@ -91,7 +105,7 @@ function App() {
               </span>
               <button
                 className="delete-button"
-                onClick={() => handleDelete(item.id)}
+                onClick={() => handleDeleteItem(item.id)}
                 title="Delete item"
               >
                 ×

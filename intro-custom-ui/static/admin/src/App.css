@@ -1,7 +1,6 @@
 .app-container {
   padding: var(--ds-space-200, 16px);
-  background-color: var(--ds-surface, transparent);
-  color: var(--ds-text, #172b4d);
+  max-width: 400px;
 }
 
 .add-form {
@@ -108,42 +107,51 @@
 }
 
 .loading-container {
-  padding: 16px;
   display: flex;
   justify-content: center;
+  padding: var(--ds-space-400, 32px);
 }
 
-.issue-info {
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-150, 12px);
+.form-field {
   margin-bottom: var(--ds-space-200, 16px);
-  padding: var(--ds-space-150, 12px);
-  background-color: var(--ds-background-neutral, #f4f5f7);
-  border-radius: var(--ds-radius-100, 4px);
-  font-size: 13px;
 }
 
-.issue-info > span {
-  color: var(--ds-text-subtle, #626f86);
-  display: flex;
-  align-items: center;
-  gap: var(--ds-space-050, 4px);
-}
-
-.labels {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--ds-space-050, 4px);
-}
-
-.label-tag {
-  display: inline-block;
-  padding: 2px 8px;
-  font-size: 11px;
+.form-field label {
+  display: block;
+  margin-bottom: var(--ds-space-050, 4px);
   font-weight: 500;
   color: var(--ds-text, #172b4d);
-  background-color: var(--ds-background-accent-blue-subtler, #cce0ff);
-  border-radius: var(--ds-radius-050, 3px);
-  text-transform: lowercase;
+}
+
+.message {
+  margin-top: var(--ds-space-200, 16px);
+  color: var(--ds-text-success, #006644);
+}
+
+.test-section {
+  margin-top: var(--ds-space-300, 24px);
+  padding-top: var(--ds-space-200, 16px);
+  border-top: 1px solid var(--ds-border, #dfe1e6);
+}
+
+.test-section h3 {
+  margin: 0 0 var(--ds-space-200, 16px) 0;
+  color: var(--ds-text, #172b4d);
+}
+
+.external-result {
+  margin-top: var(--ds-space-200, 16px);
+  padding: var(--ds-space-200, 16px);
+  background-color: var(--ds-background-neutral, #f4f5f7);
+  border-radius: var(--ds-radius-100, 3px);
+}
+
+.external-result strong {
+  display: block;
+  margin-bottom: var(--ds-space-100, 8px);
+}
+
+.error {
+  color: var(--ds-text-danger, #de350b);
+  margin: 0;
 }
