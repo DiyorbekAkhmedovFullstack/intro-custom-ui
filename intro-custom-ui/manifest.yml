@@ -12,7 +12,7 @@ modules:
       resource: admin
       resolver:
         function: resolver
-      title: Checklist Settings
+      title: Admin Page
   function:
     - key: resolver
       handler: index.handler
